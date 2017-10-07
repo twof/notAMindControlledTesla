@@ -24,21 +24,21 @@ def collect(collector, options):
       time.sleep(options.waiting_period)
       collector.tag(thought)
       time.sleep(options.collection_period)
-      
+
   collector.stop()
 
 if __name__ == '__main__':
   ports = open_bci.find_ports()
   port = ports[0] if ports else None
-  
+
   assert len(sys.argv) == 2, "Error: Please provide filename."
   assert port, "Error: Could not find serial port in use."
-  
+
   filename = sys.argv[1]
   print("Writing to file: {}".format(filename))
   print("Using Port: {}".format(port))
-  
+
   board = open_bci.OpenBCIBoard(port=port)
   collector = csv_collector.CSVCollector(filename, board)
-  collector_options = CollectionOptions(3, 1, 3, 3, ['go', 'stop'])
+  collector_options = CollectionOptions(3, 1, 30, 3, ['go', 'stop'])
   collect(collector, collector_options)

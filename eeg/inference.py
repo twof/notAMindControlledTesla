@@ -28,6 +28,7 @@ class StreamingInference(object):
 
   def handle_sample(self, sample):
     y = self.model.predict(np.array(sample.channel_data).reshape(1, -1))[0]
+    print("predicta", self.model.predict(np.array(sample.channel_data).reshape(1, -1)))
     self.num_gos += 1 if y == 'go' else 0
     self.num_samples += 1
     if self.num_samples >= self.num_samples_per_write:

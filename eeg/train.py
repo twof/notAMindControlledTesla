@@ -54,6 +54,7 @@ if __name__ == '__main__':
   # Prepare submodels
   ica = decomposition.FastICA(n_components=6)
   nn = neighbors.KNeighborsClassifier(n_neighbors=3)
+
   model = TransformClassifier(ica, nn)
 
   # Train model
