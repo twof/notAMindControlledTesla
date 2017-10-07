@@ -3,7 +3,7 @@ import sys
 import serial
 
 if __name__ == '__main__':
-  port = sys.argv[1] if sys.argv[1:] else '/dev/tty.usbmodem1411'
+  port = sys.argv[1] if sys.argv[1:] else '/dev/tty.usbserial-DQ007SU3'
   print("Using port={}".format(port))
   arduino = serial.Serial(port, baudrate=57600)
   s = '0'

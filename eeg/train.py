@@ -13,10 +13,10 @@ _CHANNELS = ['channel_{}'.format(i) for i in range(8)]
 
 def read_clean(filename, pos_label, neg_label):
   """Reads a datafile and drops samples without desired labels."""
-  raw_data = pd.read_csv(filename, sep=',')
-  pos_idx = raw_data['tag'] == pos_label
-  neg_idx = raw_data['tag'] == neg_label
-  return raw_data[pos_idx | neg_idx]
+  raw_data = pd.read_csv(filename, sep=',') # returns a 2d array
+  pos_idx = raw_data['tag'] == pos_label # returns an array of true or false if matches pos_label
+  neg_idx = raw_data['tag'] == neg_label # returns an array of true or false if matches neg_label
+  return raw_data[pos_idx | neg_idx] # returns an array sans anything that isn't either pos or neg_label
 
 def prepare_train_test(data):
   """Prepares data for training. Returns Xtr, Ytr, Xte, Yte."""
