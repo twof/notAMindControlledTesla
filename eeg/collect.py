@@ -40,5 +40,5 @@ if __name__ == '__main__':
 
   board = open_bci.OpenBCIBoard(port=port)
   collector = csv_collector.CSVCollector(filename, board)
-  collector_options = CollectionOptions(3, 1, 30, 3, ['go', 'stop'])
+  collector_options = CollectionOptions(3, 1, 10, 3, ['go', 'stop'])
   collect(collector, collector_options)

@@ -1,7 +1,7 @@
 import sys
 
 import pandas as pd
-from sklearn import cross_validation
+from sklearn import linear_model
 from sklearn import decomposition
 from sklearn import neighbors
 from sklearn import utils
@@ -35,7 +35,7 @@ class TransformClassifier(object):
         self.clf = classifier
 
     def fit(self, X, y):
-        X_transformed = self.tr.fit_transform(X)
+        # X_transformed = self.tr.fit_transform(X)
         self.clf.fit(X_transformed, y)
 
     def predict(self, X):
@@ -58,10 +58,10 @@ if __name__ == '__main__':
     Xtr, Xte, Ytr, Yte = prepare_train_test(train_data, test_data)
 
     # Prepare submodels
-    ica = decomposition.FastICA(n_components=6)
-    nn = neighbors.KNeighborsClassifier(n_neighbors=5)
+    # ica = decomposition.FastICA(n_components=6)
+    # nn = neighbors.KNeighborsClassifier(n_neighbors=5)
 
-    model = TransformClassifier(ica, nn)
+    model = linear_model.LogisticRegression(C=1e5)
 
     # Train model
     model.fit(Xtr, Ytr)

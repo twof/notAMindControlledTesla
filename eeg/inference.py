@@ -3,7 +3,7 @@ import sys
 import numpy as np
 import serial
 from sklearn import decomposition
-from sklearn import neighbors
+from sklearn import svm
 
 import collect
 import train
@@ -28,7 +28,7 @@ class StreamingInference(object):
 
   def handle_sample(self, sample):
     y = self.model.predict(np.array(sample.channel_data).reshape(1, -1))[0]
-    print("predicta", self.model.predict(np.array(sample.channel_data).reshape(1, -1)))
+    print("predict", self.model.predict(np.array(sample.channel_data).reshape(1, -1)))
     self.num_gos += 1 if y == 'go' else 0
     self.num_samples += 1
     if self.num_samples >= self.num_samples_per_write:
@@ -49,7 +49,7 @@ if __name__ == '__main__':
 
   # Prepare submodels
   ica = decomposition.FastICA(n_components=6)
-  nn = neighbors.KNeighborsClassifier(n_neighbors=3)
+  nn = svm.SVC()
   model = train.TransformClassifier(ica, nn)
 
   # Train model
@@ -59,7 +59,7 @@ if __name__ == '__main__':
   # Set ports.
   # TODO: remove hardcoded values.
   bci_port = '/dev/tty.usbserial-DQ007SU3'
-  arduino_port = '/dev/tty.usbmodem1411'
+  arduino_port = '/dev/cu.usbmodem1421'
 
   print("Starting connection with OpenBCI on port={}...".format(bci_port))
   board = open_bci.OpenBCIBoard(port=bci_port)

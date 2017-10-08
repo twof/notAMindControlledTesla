@@ -3,7 +3,7 @@ import sys
 import numpy as np
 import serial
 from sklearn import decomposition
-from sklearn import neighbors
+from sklearn import svm
 
 import collect
 import inference
@@ -14,7 +14,7 @@ from util import csv_collector
 if __name__ == '__main__':
   # TODO: remove hardcoded values.
   bci_port = '/dev/tty.usbserial-DQ007SU3'
-  arduino_port = '/dev/tty.usbmodem1411'
+  arduino_port = '/dev/cu.usbmodem1421'
 
   assert len(sys.argv) == 2, "Error: Please provide filename."
 
@@ -36,7 +36,7 @@ if __name__ == '__main__':
   Xtr, Xte, Ytr, Yte = train.prepare_train_test(data)
 
   ica = decomposition.FastICA(n_components=6)
-  nn = neighbors.KNeighborsClassifier(n_neighbors=5)
+  nn = svm.SVC()
   model = train.TransformClassifier(ica, nn)
   model.fit(Xtr, Ytr)
   print("\nModel score: {}\n".format(model.score(Xte, Yte)))

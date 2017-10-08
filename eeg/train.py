@@ -5,7 +5,7 @@ import pandas as pd
 import sklearn
 from sklearn import cross_validation
 from sklearn import decomposition
-from sklearn import neighbors
+from sklearn import svm
 from sklearn import utils
 
 
@@ -53,7 +53,7 @@ if __name__ == '__main__':
 
   # Prepare submodels
   ica = decomposition.FastICA(n_components=6)
-  nn = neighbors.KNeighborsClassifier(n_neighbors=3)
+  nn = svm.SVC()
 
   model = TransformClassifier(ica, nn)
 
